@@ -9,9 +9,9 @@ manifest:
       # kyek / duckyb
     - name: duckyb
       url-base: https://github.com/duckyb
-      # nice-view-gem
-    - name: m165437
-      url-base: https://github.com/M165437
+      # nice-view-bongo-cat
+    - name: banh-me
+      url-base: https://github.com/banh-me
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -20,8 +20,8 @@ manifest:
     - name: urchin-zmk-module
       remote: duckyb
       revision: main
-    - name: nice-view-gem
-      remote: m165437
-      revision: v0.3.0
+    - name: nice-view-bongo-cat
+      remote: banh-me
+      revision: 183597e117881612d9c5b8d1f8c34adcc388d7c3
   self:
     path: config
