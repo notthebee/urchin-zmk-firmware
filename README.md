@@ -8,7 +8,7 @@ Firmware for: [Urchin Keyboard](https://github.com/duckyb/urchin)
 **Do you want to download my keymap?**  
 
 > [!IMPORTANT]
-> My firmware only matches the following diagram if the operating system is set to "Italian" keyboard input.
+> The keymap is ported from the TOTEM keymap and expects a plain ANSI keyboard layout in the operating system. The diagram further down is the upstream Seniply one and no longer matches.
 
 [Download the firmware zip from the latest action run.](https://github.com/duckyb/zmk-urchin/actions/workflows/build.yml?query=is%3Asuccess+branch%3Amaster) Check [the ZMK docs](https://zmk.dev/docs/user-setup#installing-the-firmware) for instructions on how to flash it.
 
