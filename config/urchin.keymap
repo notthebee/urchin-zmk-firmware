@@ -69,7 +69,7 @@
         };
 
         tab_gaming {
-            bindings = <&kp TAB>;
+            bindings = <&kp ESC>;
             key-positions = <10 11>;
             layers = <GAMING>;
         };
@@ -78,6 +78,11 @@
             bindings = <&kp TILDE>;
             key-positions = <0 1>;
             layers = <BASE>;
+        };
+
+        tab {
+            bindings = <&kp TAB>;
+            key-positions = <20 11>;
         };
     };
 
