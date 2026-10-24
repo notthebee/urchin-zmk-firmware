@@ -83,6 +83,7 @@
             bindings = <&kp ESC>;
             key-positions = <11 10>;
             timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
         };
     };
 
