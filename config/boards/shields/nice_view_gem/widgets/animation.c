@@ -38,7 +38,8 @@ void draw_animation(lv_obj_t *parent) {
     lv_img_set_src(art, anim_imgs[sys_rand32_get() % ARRAY_SIZE(anim_imgs)]);
 #endif
 
-    // Pre-rotated art starts at the low-x end of the display; the status canvas sits at the
-    // other end, so nothing overlaps.
-    lv_obj_align(art, LV_ALIGN_TOP_LEFT, 0, 0);
+    // The frames are 140px of opaque art for a 160px display, and the status canvas claims
+    // the high-x end (battery text lands around x=131). Ink only spans x=23..107, so pulling
+    // the art left keeps it clear of the status without cropping anything.
+    lv_obj_align(art, LV_ALIGN_TOP_LEFT, -12, 0);
 }
