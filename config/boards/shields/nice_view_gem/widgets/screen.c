@@ -238,7 +238,7 @@ static void bongocat_idle_work_handler(struct k_work *work) {
     bongocat_idle_tick();
     redraw_middle();
 
-    k_work_reschedule_for(zmk_display_work_q(), &bongocat_idle_work, K_MSEC(BONGOCAT_IDLE_MS));
+    k_work_reschedule_for_queue(zmk_display_work_q(), &bongocat_idle_work, K_MSEC(BONGOCAT_IDLE_MS));
 }
 
 /**
@@ -269,7 +269,7 @@ int zmk_widget_screen_init(struct zmk_widget_screen *widget, lv_obj_t *parent) {
     widget_key_status_init();
 
     k_work_init_delayable(&bongocat_idle_work, bongocat_idle_work_handler);
-    k_work_schedule_for(zmk_display_work_q(), &bongocat_idle_work, K_MSEC(BONGOCAT_IDLE_MS));
+    k_work_schedule_for_queue(zmk_display_work_q(), &bongocat_idle_work, K_MSEC(BONGOCAT_IDLE_MS));
 
     return 0;
 }
