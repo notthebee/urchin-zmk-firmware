@@ -215,13 +215,27 @@ static void redraw_middle(void) {
  **/
 
 static void key_status_update_cb(struct key_status_state state) {
-    bongocat_set_key_pressed(state.pressed);
+    ARG_UNUSED(state);
     redraw_middle();
+
+    // A tap can coalesce down to a single redraw of the strike frame; make sure the breathing
+    // cycle resumes once the frame's minimum hold time is over.
+    if (bongocat_strike_active()) {
+        k_work_reschedule_for_queue(zmk_display_work_q(), &bongocat_idle_work,
+                                    K_MSEC(BONGOCAT_STRIKE_MS));
+    }
 }
 
+// The update callback is coalesced onto the display queue, so at typing speed press/release
+// pairs collapse and the press is lost. The get_state callback runs synchronously for every
+// event, so the bongocat state has to be advanced here.
 static struct key_status_state key_status_get_state(const zmk_event_t *eh) {
     const struct zmk_position_state_changed *ev = as_zmk_position_state_changed(eh);
-    return (struct key_status_state){.pressed = ev != NULL && ev->state > 0};
+    bool pressed = ev != NULL && ev->state > 0;
+
+    bongocat_set_key_pressed(pressed);
+
+    return (struct key_status_state){.pressed = pressed};
 }
 
 ZMK_DISPLAY_WIDGET_LISTENER(widget_key_status, struct key_status_state, key_status_update_cb,

@@ -12,6 +12,17 @@ Firmware for: [Urchin Keyboard](https://github.com/duckyb/urchin)
 
 [Download the firmware zip from the latest action run.](https://github.com/duckyb/zmk-urchin/actions/workflows/build.yml?query=is%3Asuccess+branch%3Amaster) Check [the ZMK docs](https://zmk.dev/docs/user-setup#installing-the-firmware) for instructions on how to flash it.
 
+### Building locally
+
+The build environment comes from [zephyr-nix](https://github.com/nix-community/zephyr-nix):
+
+```sh
+nix develop --command scripts/build.sh   # every entry in build.yaml -> build/artifacts
+nix build .#firmware                     # same builds, result/ in the nix store
+```
+
+The first run fetches the west workspace (`zmk/`, `zephyr/`, `modules/`, `urchin-zmk-module/`) into the repo root; later runs reuse it (`WEST_UPDATE=0` to skip, `ARTIFACTS=...` to move the output). Artifacts are the `zmk.uf2` files to drop onto the keyboard.
+
 ## Keymap Cheat Sheet
 
 This layout is inspired by [Seniply by Stevep99](https://stevep99.github.io/seniply/)

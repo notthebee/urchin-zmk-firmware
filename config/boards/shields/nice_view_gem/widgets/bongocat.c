@@ -15,7 +15,10 @@ static const lv_img_dsc_t *const idle_frames[] = {&bongo_inhale, &bongo_resting,
 
 static enum idle_frame idle_frame_index;
 static bool key_pressed;
-static uint8_t press_count;
+static bool paw_left;
+// Written from the event thread, read from the display queue: 32-bit so the read can't be torn,
+// and wrap-safe comparison. ponytail: single writer, no lock needed.
+static uint32_t strike_until;
 
 static bool is_furious(const struct status_state *state) {
     int recent_wpm = 0;
@@ -29,12 +32,11 @@ void draw_bongocat_status(lv_obj_t *canvas, const struct status_state *state) {
     bool furious = is_furious(state);
     const lv_img_dsc_t *frame;
 
-    if (key_pressed) {
-        bool left_paw = press_count % 2;
+    if (bongocat_strike_active()) {
         if (furious) {
-            frame = left_paw ? &bongo_furiousdown : &bongo_furiousup;
+            frame = paw_left ? &bongo_furiousdown : &bongo_furiousup;
         } else {
-            frame = left_paw ? &bongo_casualleft : &bongo_casualright;
+            frame = paw_left ? &bongo_casualleft : &bongo_casualright;
         }
     } else {
         frame = furious ? &bongo_resting : idle_frames[idle_frame_index];
@@ -47,12 +49,17 @@ void draw_bongocat_status(lv_obj_t *canvas, const struct status_state *state) {
 
 void bongocat_set_key_pressed(bool pressed) {
     if (pressed && !key_pressed) {
-        press_count++;
+        paw_left = !paw_left;
+        strike_until = k_uptime_get_32() + BONGOCAT_STRIKE_MS;
     } else if (!pressed) {
         // Land on the resting frame, then resume the breathing cycle from there.
         idle_frame_index = IDLE_REST_1;
     }
     key_pressed = pressed;
+}
+
+bool bongocat_strike_active(void) {
+    return key_pressed || (int32_t)(k_uptime_get_32() - strike_until) < 0;
 }
 
 void bongocat_idle_tick(void) {
