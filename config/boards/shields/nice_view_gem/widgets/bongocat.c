@@ -6,7 +6,7 @@
 
 #define BONGOCAT_HEIGHT 40
 // Average WPM of the last 5 samples above which the cat goes into furious mode.
-#define BONGOCAT_FURIOUS_WPM 30
+#define BONGOCAT_FURIOUS_WPM 70
 
 enum idle_frame { IDLE_INHALE, IDLE_REST_1, IDLE_EXHALE, IDLE_REST_2 };
 
