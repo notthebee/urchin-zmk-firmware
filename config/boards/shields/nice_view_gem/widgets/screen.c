@@ -203,17 +203,20 @@ ZMK_DISPLAY_WIDGET_LISTENER(widget_wpm_status, struct wpm_status_state, wpm_stat
                             wpm_status_get_state)
 ZMK_SUBSCRIPTION(widget_wpm_status, zmk_wpm_state_changed);
 
+static void redraw_middle(void) {
+    struct zmk_widget_screen *widget;
+    SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) {
+        draw_middle(widget->obj, widget->cbuf2, &widget->state);
+    }
+}
+
 /**
  * Key status
  **/
 
 static void key_status_update_cb(struct key_status_state state) {
     bongocat_set_key_pressed(state.pressed);
-
-    struct zmk_widget_screen *widget;
-    SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) {
-        draw_middle(widget->obj, widget->cbuf2, &widget->state);
-    }
+    redraw_middle();
 }
 
 static struct key_status_state key_status_get_state(const zmk_event_t *eh) {
@@ -229,15 +232,13 @@ ZMK_SUBSCRIPTION(widget_key_status, zmk_position_state_changed);
  * Idle animation
  **/
 
+// Must run on the display queue: rotate_canvas() uses a shared static buffer and LVGL itself
+// is not thread safe, so a redraw from the system queue interleaves with the widget listeners.
 static void bongocat_idle_work_handler(struct k_work *work) {
     bongocat_idle_tick();
+    redraw_middle();
 
-    struct zmk_widget_screen *widget;
-    SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) {
-        draw_middle(widget->obj, widget->cbuf2, &widget->state);
-    }
-
-    k_work_reschedule(&bongocat_idle_work, K_MSEC(BONGOCAT_IDLE_MS));
+    k_work_reschedule_for(zmk_display_work_q(), &bongocat_idle_work, K_MSEC(BONGOCAT_IDLE_MS));
 }
 
 /**
@@ -268,7 +269,7 @@ int zmk_widget_screen_init(struct zmk_widget_screen *widget, lv_obj_t *parent) {
     widget_key_status_init();
 
     k_work_init_delayable(&bongocat_idle_work, bongocat_idle_work_handler);
-    k_work_schedule(&bongocat_idle_work, K_MSEC(BONGOCAT_IDLE_MS));
+    k_work_schedule_for(zmk_display_work_q(), &bongocat_idle_work, K_MSEC(BONGOCAT_IDLE_MS));
 
     return 0;
 }
