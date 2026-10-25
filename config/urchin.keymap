@@ -211,7 +211,7 @@
             bindings = <
 &kp GRAVE  &kp UNDER       &kp UP          &kp PLUS         &kp LBRC  &kp RBRC  &kp N7        &kp N8  &kp N9        &kp EQUAL
 &trans     &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp LBKT  &kp RBKT  &kp NUMBER_4  &kp N5  &kp NUMBER_6  &kp BACKSPACE
-&trans     &kp PG_UP       &kp LG(DOWN)    &kp PG_DN        &kp LPAR  &kp RPAR  &kp NUMBER_1  &kp N2  &kp N3        &kp KP_MULTIPLY
+&tog 4     &kp PG_UP       &kp LG(DOWN)    &kp PG_DN        &kp LPAR  &kp RPAR  &kp NUMBER_1  &kp N2  &kp N3        &kp KP_MULTIPLY
                                            &trans           &trans    &kp N0    &kp PERIOD
             >;
         };
@@ -239,10 +239,19 @@
         gaming {
             label = "GAME";
             bindings = <
-&kp Q   &kp W   &kp E   &kp R     &kp P      &trans     &trans  &trans  &trans  &trans
-&kp N1  &kp S   &kp D   &kp F     &kp N6     &trans     &trans  &trans  &trans  &trans
-&kp N2  &kp N3  &kp N4  &kp N5    &kp B      &trans     &trans  &trans  &trans  &tog GAMING
-                        &kp LALT  &kp SPACE  &kp LCTRL  &trans
+&kp Q      &kp W   &kp E   &kp R     &kp P      &trans     &trans  &trans  &trans  &trans
+&kp LCTRL  &kp S   &kp D   &kp F     &kp N6     &trans     &trans  &trans  &trans  &trans
+&kp F2     &kp F3  &kp F4  &kp N5    &kp B      &trans     &trans  &trans  &trans  &tog GAMING
+                           &kp LALT  &kp SPACE  &kp LCTRL  &trans
+            >;
+        };
+
+        gaming_2 {
+            bindings = <
+&kp LC(Q)  &kp LC(W)  &kp LC(E)  &kp LC(R)  &trans  &trans  &trans  &trans  &trans  &trans
+&trans     &trans     &trans     &trans     &trans  &trans  &trans  &trans  &trans  &trans
+&trans     &trans     &trans     &trans     &trans  &trans  &trans  &trans  &trans  &trans
+                                 &trans     &trans  &trans  &trans
             >;
         };
     };
