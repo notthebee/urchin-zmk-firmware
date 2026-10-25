@@ -1,48 +1,44 @@
-#include <stdlib.h>
 #include <zephyr/kernel.h>
+#include <zephyr/random/random.h>
+#include <zephyr/sys/util.h>
+
 #include "animation.h"
 
-LV_IMG_DECLARE(crystal_01);
-LV_IMG_DECLARE(crystal_02);
-LV_IMG_DECLARE(crystal_03);
-LV_IMG_DECLARE(crystal_04);
-LV_IMG_DECLARE(crystal_05);
-LV_IMG_DECLARE(crystal_06);
-LV_IMG_DECLARE(crystal_07);
-LV_IMG_DECLARE(crystal_08);
-LV_IMG_DECLARE(crystal_09);
-LV_IMG_DECLARE(crystal_10);
-LV_IMG_DECLARE(crystal_11);
-LV_IMG_DECLARE(crystal_12);
-LV_IMG_DECLARE(crystal_13);
-LV_IMG_DECLARE(crystal_14);
-LV_IMG_DECLARE(crystal_15);
-LV_IMG_DECLARE(crystal_16);
+// Corro the sea urchin, 12 frames at 140x68 (pre-rotated for the vertical mount).
+// Art from https://github.com/Merlinov/niceview-peripheral-animation
+LV_IMG_DECLARE(corro01);
+LV_IMG_DECLARE(corro02);
+LV_IMG_DECLARE(corro03);
+LV_IMG_DECLARE(corro04);
+LV_IMG_DECLARE(corro05);
+LV_IMG_DECLARE(corro06);
+LV_IMG_DECLARE(corro07);
+LV_IMG_DECLARE(corro08);
+LV_IMG_DECLARE(corro09);
+LV_IMG_DECLARE(corro10);
+LV_IMG_DECLARE(corro11);
+LV_IMG_DECLARE(corro12);
 
-const lv_img_dsc_t *anim_imgs[] = {
-    &crystal_01, &crystal_02, &crystal_03, &crystal_04, &crystal_05, &crystal_06,
-    &crystal_07, &crystal_08, &crystal_09, &crystal_10, &crystal_11, &crystal_12,
-    &crystal_13, &crystal_14, &crystal_15, &crystal_16,
+static const lv_img_dsc_t *const anim_imgs[] = {
+    &corro01, &corro02, &corro03, &corro04, &corro05, &corro06,
+    &corro07, &corro08, &corro09, &corro10, &corro11, &corro12,
 };
 
-void draw_animation(lv_obj_t *canvas) {
-#if IS_ENABLED(CONFIG_NICE_VIEW_GEM_ANIMATION)
-    lv_obj_t *art = lv_animimg_create(canvas);
-    lv_obj_center(art);
+void draw_animation(lv_obj_t *parent) {
+    lv_obj_t *art;
 
-    lv_animimg_set_src(art, (const void **)anim_imgs, 16);
+#if IS_ENABLED(CONFIG_NICE_VIEW_GEM_ANIMATION)
+    art = lv_animimg_create(parent);
+    lv_animimg_set_src(art, (const void **)anim_imgs, ARRAY_SIZE(anim_imgs));
     lv_animimg_set_duration(art, CONFIG_NICE_VIEW_GEM_ANIMATION_MS);
     lv_animimg_set_repeat_count(art, LV_ANIM_REPEAT_INFINITE);
     lv_animimg_start(art);
 #else
-    lv_obj_t *art = lv_img_create(canvas);
-
-    int length = sizeof(anim_imgs) / sizeof(anim_imgs[0]);
-    srand(k_uptime_get_32());
-    int random_index = rand() % length;
-
-    lv_img_set_src(art, anim_imgs[random_index]);
+    art = lv_img_create(parent);
+    lv_img_set_src(art, anim_imgs[sys_rand32_get() % ARRAY_SIZE(anim_imgs)]);
 #endif
 
-    lv_obj_align(art, LV_ALIGN_TOP_LEFT, 36, 0);
+    // Pre-rotated art starts at the low-x end of the display; the status canvas sits at the
+    // other end, so nothing overlaps.
+    lv_obj_align(art, LV_ALIGN_TOP_LEFT, 0, 0);
 }
