@@ -15,6 +15,6 @@ struct key_status_state {
 };
 
 void draw_bongocat_status(lv_obj_t *canvas, const struct status_state *state);
-void bongocat_set_key_pressed(bool pressed);
+void bongocat_set_key_pressed(bool pressed, uint32_t position);
 bool bongocat_strike_active(void);
 void bongocat_idle_tick(void);

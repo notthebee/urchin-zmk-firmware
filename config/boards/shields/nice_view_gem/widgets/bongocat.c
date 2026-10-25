@@ -47,9 +47,16 @@ void draw_bongocat_status(lv_obj_t *canvas, const struct status_state *state) {
     lv_canvas_draw_img(canvas, 0, (BUFFER_SIZE - BONGOCAT_HEIGHT) / 2, frame, &img_dsc);
 }
 
-void bongocat_set_key_pressed(bool pressed) {
+// The paw that strikes follows the physical half of the key. Keymap positions run in rows of
+// 10 with columns 0-4 on the left half and 5-9 on the right; the four thumbs are 30,31 (left)
+// and 32,33 (right).
+static bool position_is_left(uint32_t position) {
+    return position < 30 ? position % 10 < 5 : position < 32;
+}
+
+void bongocat_set_key_pressed(bool pressed, uint32_t position) {
     if (pressed && !key_pressed) {
-        paw_left = !paw_left;
+        paw_left = position_is_left(position);
         strike_until = k_uptime_get_32() + BONGOCAT_STRIKE_MS;
     } else if (!pressed) {
         // Land on the resting frame, then resume the breathing cycle from there.

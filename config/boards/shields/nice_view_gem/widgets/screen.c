@@ -233,7 +233,7 @@ static struct key_status_state key_status_get_state(const zmk_event_t *eh) {
     const struct zmk_position_state_changed *ev = as_zmk_position_state_changed(eh);
     bool pressed = ev != NULL && ev->state > 0;
 
-    bongocat_set_key_pressed(pressed);
+    bongocat_set_key_pressed(pressed, ev != NULL ? ev->position : 0);
 
     return (struct key_status_state){.pressed = pressed};
 }
