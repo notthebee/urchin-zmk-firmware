@@ -42,13 +42,6 @@
             timeout-ms = <70>;
         };
 
-        enter_combo {
-            bindings = <&kp ENTER>;
-            key-positions = <13 12 11>;
-            timeout-ms = <70>;
-            require-prior-idle-ms = <100>;
-        };
-
         enter_right_combo {
             bindings = <&kp ENTER>;
             key-positions = <16 18 17>;
@@ -79,7 +72,6 @@
         tab {
             bindings = <&kp TAB>;
             key-positions = <20 11>;
-            layers = <4>;
         };
 
         escape {
@@ -87,7 +79,6 @@
             key-positions = <11 10>;
             timeout-ms = <30>;
             require-prior-idle-ms = <80>;
-            layers = <4>;
         };
     };
 
