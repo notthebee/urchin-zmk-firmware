@@ -109,6 +109,32 @@
             require-prior-idle-ms = <80>;
             layers = <0>;
         };
+
+        hash {
+            bindings = <&kp HASH>;
+            key-positions = <2 12>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
+            layers = <0>;
+        };
+
+        dollar {
+            bindings = <&kp DLLR>;
+            key-positions = <3 13>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
+            layers = <0>;
+        };
+
+        percent {
+            bindings = <&kp PRCNT>;
+            key-positions = <4 14>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
+            layers = <0>;
+        };
+
+
     };
 
     behaviors {
