@@ -134,7 +134,37 @@
             layers = <0>;
         };
 
+        tilde_combo {
+            bindings = <&kp TILDE>;
+            key-positions = <24 14>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
+            layers = <0>;
+        };
 
+        slash_combo {
+            bindings = <&kp BACKSLASH>;
+            key-positions = <12 22>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
+            layers = <0>;
+        };
+
+        equal_combo {
+            bindings = <&kp EQUAL>;
+            key-positions = <13 23>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
+            layers = <0>;
+        };
+
+        backtick_combo {
+            bindings = <&kp GRAVE>;
+            key-positions = <21 11>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
+            layers = <0>;
+        };
     };
 
     behaviors {
@@ -190,42 +220,6 @@
             flavor = "tap-preferred";
             hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 32 33 31 30>;
             require-prior-idle-ms = <30>;
-        };
-
-        hold_sticky: hold_sticky {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOLD_STICKY";
-            bindings = <&kp>, <&sk>;
-
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <150>;
-            quick-tap-ms = <220>;
-        };
-
-        mt_all: mt_all {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MT_ALL";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <175>;
-            quick-tap-ms = <175>;
-            flavor = "balanced";
-            require-prior-idle-ms = <35>;
-            hold-trigger-on-release;
-        };
-
-        lt_thumb: lt_thumb {
-            compatible = "zmk,behavior-hold-tap";
-            label = "LT_THUMB";
-            bindings = <&lt>, <&kp>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <100>;
-            quick-tap-ms = <220>;
-            require-prior-idle-ms = <0>;
-            flavor = "balanced";
         };
     };
 
