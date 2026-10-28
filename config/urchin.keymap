@@ -67,11 +67,15 @@
             bindings = <&kp TILDE>;
             key-positions = <0 1>;
             layers = <BASE>;
+            timeout-ms = <25>;
+            require-prior-idle-ms = <80>;
         };
 
         tab {
             bindings = <&kp TAB>;
             key-positions = <20 11>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
         };
 
         escape {
