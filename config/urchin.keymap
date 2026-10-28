@@ -39,7 +39,8 @@
         dash {
             bindings = <&kp MINUS>;
             key-positions = <19 18>;
-            timeout-ms = <70>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
         };
 
         enter_right_combo {
@@ -49,18 +50,18 @@
             require-prior-idle-ms = <100>;
         };
 
-        russian_letter_ {
-            bindings = <&kp RIGHT_BRACKET>;
+        double_quote {
+            bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <8 9>;
-            timeout-ms = <20>;
-            require-prior-idle-ms = <100>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <80>;
         };
 
-        russian_letter_x {
-            bindings = <&kp LEFT_BRACKET>;
+        single_quote {
+            bindings = <&kp SINGLE_QUOTE>;
             key-positions = <8 7>;
-            require-prior-idle-ms = <100>;
-            timeout-ms = <20>;
+            require-prior-idle-ms = <80>;
+            timeout-ms = <30>;
         };
 
         tilde {
