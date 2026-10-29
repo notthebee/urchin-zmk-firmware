@@ -67,7 +67,7 @@
         tilde {
             bindings = <&kp TILDE>;
             key-positions = <0 1>;
-            layers = <BASE>;
+            layers = <0>;
             timeout-ms = <25>;
             require-prior-idle-ms = <80>;
         };
@@ -254,7 +254,7 @@
 &kp EXCL     &kp AT  &kp HASH  &kp DLLR       &kp PRCNT             &kp CARET     &kp AMPS         &kp ASTERISK  &kp SQT     &kp DQT
 &kp RA(A)    &trans  &trans    &trans         &trans                &kp C_MUTE    &kp PRINTSCREEN  &trans        &trans      &kp BACKSPACE
 &kp RA(F18)  &trans  &trans    &kp C_BRI_DEC  &kp C_BRIGHTNESS_INC  &kp C_VOL_DN  &kp C_VOL_UP     &kp C_PREV    &kp C_NEXT  &kp BSLH
-                               &trans         &mo ADJ               &kp C_PP      &trans
+                               &trans         &mo 3                 &kp C_PP      &trans
             >;
         };
 
@@ -273,17 +273,8 @@
             bindings = <
 &kp Q             &kp W             &kp E             &kp R     &kp T      &trans     &trans  &trans  &trans  &trans
 &mt LCTRL ESC     &kp S             &kp D             &kp F     &kp N6     &trans     &trans  &trans  &trans  &trans
-&kp LC(NUMBER_1)  &kp LC(NUMBER_2)  &kp LC(NUMBER_3)  &kp N5    &kp B      &trans     &trans  &trans  &trans  &tog GAMING
+&kp LC(NUMBER_1)  &kp LC(NUMBER_2)  &kp LC(NUMBER_3)  &kp N5    &kp B      &trans     &trans  &trans  &trans  &tog 4
                                                       &kp LALT  &kp SPACE  &kp LCTRL  &trans
-            >;
-        };
-
-        gaming_2 {
-            bindings = <
-&kp LC(Q)  &kp LC(W)  &kp LC(E)  &kp LC(R)  &trans  &trans  &trans  &trans  &trans  &trans
-&trans     &trans     &trans     &trans     &trans  &trans  &trans  &trans  &trans  &trans
-&trans     &trans     &trans     &trans     &trans  &trans  &trans  &trans  &trans  &trans
-                                 &trans     &trans  &trans  &trans
             >;
         };
     };
