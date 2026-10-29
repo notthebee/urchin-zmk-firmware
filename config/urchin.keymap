@@ -77,6 +77,7 @@
             key-positions = <20 11>;
             timeout-ms = <30>;
             require-prior-idle-ms = <80>;
+            layers = <0 4>;
         };
 
         escape {
@@ -84,6 +85,7 @@
             key-positions = <11 10>;
             timeout-ms = <30>;
             require-prior-idle-ms = <80>;
+            layers = <0 4>;
         };
 
         copy {
